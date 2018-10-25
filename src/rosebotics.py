@@ -143,7 +143,6 @@ class ArmAndClaw(object):
         self.touch_sensor = touch_sensor
         self.calibrate()  # Sets the motor's position to 0 at the DOWN position.
 
-
     def calibrate(self):
         """
         Raise the arm to until the touch sensor is pressed.
