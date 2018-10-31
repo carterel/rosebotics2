@@ -194,6 +194,7 @@ class TouchSensor(rb.TouchSensor):
                     break
         return True
 
+
 class Camera(object):
     """ Primary author of this class:  PUT_YOUR_NAME_HERE. """
 
