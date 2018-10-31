@@ -10,14 +10,12 @@ import time
 def main():
     """ Runs YOUR specific part of the project """
     print('Testing "wait_until_pressed" ')
-    ts = rb.TouchSensor
-    ts.wait_until_pressed()
-    if ts.wait_until_pressed() == 100:
+    ts = rb.TouchSensor()
+    if ts.wait_until_pressed():
         print('Test Complete')
 
     print('Testing "wait_until_released" ')
-    ts.wait_until_released()
-    if ts.wait_until_released() == 100:
+    if ts.wait_until_released():
         print('Test Complete')
 
 
