@@ -272,12 +272,19 @@ class TouchSensor(low_level_rb.TouchSensor):
 
     def wait_until_pressed(self):
         """ Waits (doing nothing new) until the touch sensor is pressed. """
-        # TODO.
-
+        # DONE.
+        while True:
+            if self.get_value() == 1:
+                break
+        return True
     def wait_until_released(self):
         """ Waits (doing nothing new) until the touch sensor is released. """
-        # TODO
-
+        # DONE
+        while True:
+            if self.get_value == 1:
+                if self.get_value() == 0:
+                    break
+        return True
 
 class ColorSensor(low_level_rb.ColorSensor):
     """
@@ -332,7 +339,11 @@ class ColorSensor(low_level_rb.ColorSensor):
         light intensity is less than the given value (threshold), which should
         be between 0 (no light reflected) and 100 (maximum light reflected).
         """
-        # TODO.
+        # DONE.
+        count = 1
+        while self.get_reflected_intensity() < reflected_light_intensity:
+            count += 1
+            break
 
     def wait_until_intensity_is_greater_than(self, reflected_light_intensity):
         """
@@ -340,24 +351,36 @@ class ColorSensor(low_level_rb.ColorSensor):
         light intensity is greater than the given value (threshold), which
         should be between 0 (no light reflected) and 100 (max light reflected).
         """
-        # TODO.
-
+        # DONE.
+        count = 1
+        while self.get_reflected_intensity() > reflected_light_intensity:
+            count += 1
+            break
     def wait_until_color_is(self, color):
         """
         Waits (doing nothing new) until the sensor's measurement
         of what color it sees is the given color.
         The given color must be a Color (as defined above).
         """
-        # TODO.
-
+        # DONE.
+        count = 1
+        while True:
+            if self.get_color() == color:
+                return count
     def wait_until_color_is_one_of(self, colors):
         """
         Waits (doing nothing new) until the sensor's measurement
         of what color it sees is any one of the given sequence of colors.
         Each item in the sequence must be a Color (as defined above).
         """
-        # TODO.
-
+        # DONE.
+        count = 1
+        while True:
+            for k in range(len(colors)):
+                if self.get_color() == colors[k-1]:
+                    return count
+                else:
+                    count += 1
 
 class Camera(object):
     """
@@ -491,7 +514,7 @@ class InfraredAsProximitySensor(low_level_rb.InfraredSensor):
         is within its field of vision.
         """
         inches_per_cm = 2.54
-        return 70 * inches_per_cm * self.get_distance_to_nearest_object() / 100
+        return (70 / inches_per_cm) * self.get_distance_to_nearest_object() / 100
 
 
 class InfraredAsBeaconSensor(object):
