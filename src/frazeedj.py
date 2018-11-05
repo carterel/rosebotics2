@@ -4,6 +4,7 @@
 """
 
 import rosebotics_new as rb
+import ev3dev.ev3 as ev3 #sounds
 import time
 
 
