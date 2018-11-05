@@ -18,5 +18,7 @@ def main():
     if ts.wait_until_released():
         print('Test Complete')
 
+    x = rb.InfraredAsProximitySensor.get_distance_to_nearest_object()
+    print(x)
 
 main()
