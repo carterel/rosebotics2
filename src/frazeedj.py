@@ -15,8 +15,8 @@ def main():
 
 def tests():
     # test_touch_sensor()
-    test_drive_until_color(rb.Color.BLACK)
-
+    # test_drive_until_color(rb.Color.BLACK)
+    test_beep_if_detect()
 
 def test_touch_sensor():
     print('Testing "wait_until_pressed" ')
@@ -38,7 +38,7 @@ def test_drive_until_color(color):
             break
 
 
-def beep_if_detect():
+def test_beep_if_detect():
     while True:
         for k in range(9, 16):
             if rb.InfraredAsProximitySensor.get_distance_to_nearest_object_in_inches == k:
