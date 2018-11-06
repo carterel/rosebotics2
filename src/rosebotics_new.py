@@ -131,7 +131,6 @@ class Snatch3rRobot(object):
         self.touch_sensor = TouchSensor(touch_sensor_port)
         self.color_sensor = ColorSensor(color_sensor_port)
         self.camera = Camera(camera_port)
-
         self.proximity_sensor = InfraredAsProximitySensor(ir_sensor_port)
         self.beacon_sensor = InfraredAsBeaconSensor(channel=1)
         self.beacon_button_sensor = InfraredAsBeaconButtonSensor(channel=1)
@@ -139,6 +138,7 @@ class Snatch3rRobot(object):
         self.brick_button_sensor = BrickButtonSensor()
 
         self.drive_system = DriveSystem(left_wheel_port, right_wheel_port)
+
         self.arm = ArmAndClaw(self.touch_sensor, arm_port)
 
 
@@ -276,6 +276,7 @@ class TouchSensor(low_level_rb.TouchSensor):
             if self.get_value() == 1:
                 break
         return True
+
     def wait_until_released(self):
         """ Waits (doing nothing new) until the touch sensor is released. """
         # DONE
@@ -284,6 +285,7 @@ class TouchSensor(low_level_rb.TouchSensor):
                 if self.get_value() == 0:
                     break
         return True
+
 
 class ColorSensor(low_level_rb.ColorSensor):
     """
@@ -294,7 +296,6 @@ class ColorSensor(low_level_rb.ColorSensor):
 
     def __init__(self, port=ev3.INPUT_3):
         super().__init__(port)
-
 
     def get_color(self):
         """
@@ -355,6 +356,7 @@ class ColorSensor(low_level_rb.ColorSensor):
         while self.get_reflected_intensity() > reflected_light_intensity:
             count += 1
             break
+
     def wait_until_color_is(self, color):
         """
         Waits (doing nothing new) until the sensor's measurement
@@ -366,6 +368,7 @@ class ColorSensor(low_level_rb.ColorSensor):
         while True:
             if self.get_color() == color:
                 return count
+
     def wait_until_color_is_one_of(self, colors):
         """
         Waits (doing nothing new) until the sensor's measurement
@@ -380,6 +383,7 @@ class ColorSensor(low_level_rb.ColorSensor):
                     return count
                 else:
                     count += 1
+
 
 class Camera(object):
     """
@@ -589,7 +593,6 @@ class InfraredAsBeaconButtonSensor(object):
             "beacon": BEACON_BUTTON
         }
 
-
     def set_channel(self, channel):
         """
         Makes this sensor look for signals on the given channel. The physical
@@ -702,16 +705,19 @@ class ArmAndClaw(object):
         again at a reasonable speed. Then set the motor's position to 0.
         (Hence, 0 means all the way DOWN and 14.2 * 360 means all the way UP).
         """
-        # TODO: Do this as STEP 2 of implementing this class.
-
+        # Done: Do this as STEP 2 of implementing this class.
         self.raise_arm_and_close_claw()
-
+        self.motor.reset_degrees_spun()
+        i = 0
         while True:
-            if self.motor.get_degrees_spun() == 5112:
+            if self.motor.get_degrees_spun() <= -5112:
                 self.motor.stop_spinning()
+                self.motor.reset_degrees_spun()
                 break
-            self.motor.start_spinning()
 
+            if self.motor.get_degrees_spun() > -5112:
+                self.motor.start_spinning(-100)
+                i += 1
 
     def raise_arm_and_close_claw(self):
         """
@@ -720,23 +726,31 @@ class ArmAndClaw(object):
         Positive speeds make the arm go UP; negative speeds make it go DOWN.
         Stop when the touch sensor is pressed.
         """
-        # TODO: Do this as STEP 1 of implementing this class.
+        # Done: Do this as STEP 1 of implementing this class.
 
+        sensor = TouchSensor()
         while True:
-            if self.touch_sensor == 1:
+            if sensor.is_pressed():
                 self.motor.stop_spinning()
                 break
-            self.motor.start_spinning(100)
+
+            if sensor.is_pressed() == False:
+                self.motor.start_spinning(100)
 
     def move_arm_to_position(self, position):
         """
         Spin the arm's motor until it reaches the given position.
         Move at a reasonable speed.
         """
-        # TODO: Do this as STEP 3 of implementing this class.
+        # Done: Do this as STEP 3 of implementing this class.
 
         while True:
             if self.motor.get_degrees_spun() == position:
                 self.motor.stop_spinning()
                 break
-            self.motor.start_spinning(100)
+
+            if self.motor.get_degrees_spun() > position:
+                self.motor.start_spinning(-100)
+
+            if self.motor.get_degrees_spun() < position:
+                self.motor.start_spinning(100)

@@ -10,19 +10,22 @@ import time
 
 def main():
     """ Runs tests. """
+    print("In main")
     run_tests()
 
 
 def run_tests():
     """ Runs various tests. """
+    print("In run test")
     # run_test_ir()
-    run_test_drive_system()
+    # run_test_drive_system()
     # run_test_touch_sensor()
     # run_test_color_sensor()
     run_test_arm()
 
 
 def run_test_arm():
+    print("Testing ARM")
     robot = rb.Snatch3rRobot()
     robot.arm.calibrate()
     time.sleep(1)
@@ -32,10 +35,11 @@ def run_test_arm():
 
 
 def run_test_ir():
+    print("Testing IR Line before")
     robot = rb.Snatch3rRobot()
-
+    print("Testing IR")
     while True:
-        # TODO: Print the value of the following, one at a time. For each,
+        # TODO: Print the value of the following, one at a time. For peach,
         # TODO:   do the appropriate user actions (e.g. try pressing a button
         # TODO:   on the Beacon and see what the beacon_button_sensor produces).
         # TODO:   Discover what values the sensors produce in which situations.
@@ -135,4 +139,5 @@ def run_test_color_sensor():
         count = count + 1
 
 
-main()
+if __name__ == "__main__":
+    main()
