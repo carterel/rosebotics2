@@ -16,10 +16,10 @@ def main():
 
 
 def tests():
-    # test_touch_sensor()
+    test_touch_sensor()
     # test_drive_until_color(rb.Color.BLACK)
     # test_beep_if_detect()
-    test_beacon_buttons()
+    # test_beacon_buttons()
 
 
 def test_touch_sensor():

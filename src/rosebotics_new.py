@@ -281,7 +281,7 @@ class TouchSensor(low_level_rb.TouchSensor):
         """ Waits (doing nothing new) until the touch sensor is released. """
         # DONE
         while True:
-            if self.get_value == 1:
+            if self.get_value == 0:
                 break
         return True
 
