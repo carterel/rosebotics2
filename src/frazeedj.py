@@ -5,8 +5,8 @@
 
 import rosebotics_new as rb
 import ev3dev.ev3 as ev3  # sounds
-import tkinter
-from tkinter import ttk
+# import tkinter
+# from tkinter import ttk
 import time
 
 
