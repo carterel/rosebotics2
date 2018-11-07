@@ -59,15 +59,15 @@ def test_beacon_buttons():
 
     while True:
         if rb.InfraredAsBeaconButtonSensor.is_top_red_button_pressed is True:
-            #rb.DriveSystem.go_straight_inches(-11)
+            # rb.DriveSystem.go_straight_inches(-11)
             rb.DriveSystem().start_moving()
             time.sleep(3)
             rb.DriveSystem().stop_moving()
         if rb.InfraredAsBeaconButtonSensor.is_top_blue_button_pressed is True:
-            #rb.DriveSystem.go_straight_inches(-11)
+            # rb.DriveSystem.go_straight_inches(-11)
             rb.DriveSystem().stop_moving()
             time.sleep(3)
             rb.DriveSystem().stop_moving()
 
-            
+
 main()
