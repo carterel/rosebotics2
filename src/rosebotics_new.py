@@ -282,8 +282,7 @@ class TouchSensor(low_level_rb.TouchSensor):
         # DONE
         while True:
             if self.get_value == 1:
-                if self.get_value() == 0:
-                    break
+                break
         return True
 
 
