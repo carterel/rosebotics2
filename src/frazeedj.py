@@ -31,8 +31,8 @@ def test_touch_sensor():
 
 def test_drive_until_color(color):
     drive = rb.DriveSystem()
+    drive.start_moving()
     while True:
-        drive.start_moving()
         if rb.ColorSensor.get_color == color:
             drive.stop_moving()
             break
@@ -43,6 +43,11 @@ def test_beep_if_detect():
         for k in range(9, 16):
             if rb.InfraredAsProximitySensor.get_distance_to_nearest_object_in_inches == k:
                 ev3.Sound.beep(1)
+
+
+def test_beacon_buttons():
+
+
 
 
 main()
