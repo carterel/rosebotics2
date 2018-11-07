@@ -88,7 +88,7 @@ def handle_go_forward(entry_box, mqtt_client):
     speed = entry_box.get()
     print("Sending 'go_forward'")
     mqtt_client.send_message('go_forward', [speed])
-    
+
     # --------------------------------------------------------------------------
     # TODO: 6. This function needs the entry box in which the user enters
     # TODO:    the speed at which the robot should move.  Make the 2 changes
