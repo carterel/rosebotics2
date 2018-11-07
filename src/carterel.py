@@ -44,7 +44,7 @@ def beacony():
     angle = rb.InfraredAsBeaconSensor().get_heading_to_beacon()
     distance = rb.InfraredAsBeaconSensor().get_distance_to_beacon()
 
-    while True:
+    # while True:
 
 
 main()
