@@ -16,8 +16,8 @@ def main():
 
 
 def tests():
-    test_touch_sensor()
-    # test_drive_until_color(rb.Color.BLACK)
+    # test_touch_sensor()
+    test_drive_until_color(1)
     # test_beep_if_detect()
     # test_beacon_buttons()
 
@@ -37,7 +37,7 @@ def test_drive_until_color(color):
     drive = rb.DriveSystem()
     drive.start_moving()
     while True:
-        if rb.ColorSensor.get_color == color:
+        if rb.ColorSensor().get_color() == color:
             drive.stop_moving()
             break
 
