@@ -5,8 +5,8 @@
 
 import rosebotics_new as rb
 import ev3dev.ev3 as ev3  # sounds
-import tkinter
-from tkinter import ttk
+# import tkinter
+# from tkinter import ttk
 import time
 
 def main():
@@ -50,12 +50,12 @@ def test_beep_if_detect():
 
 
 def test_beacon_buttons():
-    root = tkinter.Tk()
-    frame1 = ttk.Frame(root, padding=50)
-    frame1.grid()
-    button1 = ttk.Button(frame1, text='Infrared Beacon Buttons')
-    button1.grid()
-    root.mainloop()
+    # root = tkinter.Tk()
+    # frame1 = ttk.Frame(root, padding=50)
+    # frame1.grid()
+    # button1 = ttk.Button(frame1, text='Infrared Beacon Buttons')
+    # button1.grid()
+    # root.mainloop()
 
     while True:
         if rb.InfraredAsBeaconButtonSensor.is_top_red_button_pressed is True:
@@ -65,7 +65,7 @@ def test_beacon_buttons():
             rb.DriveSystem().stop_moving()
         if rb.InfraredAsBeaconButtonSensor.is_top_blue_button_pressed is True:
             # rb.DriveSystem.go_straight_inches(-11)
-            rb.DriveSystem().stop_moving()
+            rb.DriveSystem().start_moving()
             time.sleep(3)
             rb.DriveSystem().stop_moving()
 
