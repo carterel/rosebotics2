@@ -17,8 +17,8 @@ def main():
 def tests():
     # test_touch_sensor()
     # test_drive_until_color(1)
-    # test_beep_if_detect()
-    test_beacon_buttons()
+    test_beep_if_detect()
+    # test_beacon_buttons()
 
 
 def test_touch_sensor():
@@ -43,10 +43,10 @@ def test_drive_until_color(color):
 
 def test_beep_if_detect():
     while True:
-        if rb.InfraredAsProximitySensor.get_distance_to_nearest_object_in_inches is True:
-            for k in range(9, 16):
-                if rb.InfraredAsProximitySensor.get_distance_to_nearest_object_in_inches == k:
-                    ev3.Sound.beep(1)
+        if rb.InfraredAsProximitySensor.get_distance_to_nearest_object_in_inches() >= 9:
+            if rb.InfraredAsProximitySensor.get_distance_to_nearest_object_in_inches() <= 15:
+                ev3.Sound.beep(1)
+                break
 
 
 def test_beacon_buttons():
@@ -58,16 +58,17 @@ def test_beacon_buttons():
     # root.mainloop()
 
     while True:
-        if rb.InfraredAsBeaconButtonSensor.is_top_red_button_pressed is True:
+        if rb.InfraredAsBeaconButtonSensor().is_top_red_button_pressed() is True:
             # rb.DriveSystem.go_straight_inches(-11)
             rb.DriveSystem().start_moving()
             time.sleep(3)
             rb.DriveSystem().stop_moving()
-        if rb.InfraredAsBeaconButtonSensor.is_top_blue_button_pressed is True:
-            # rb.DriveSystem.go_straight_inches(-11)
-            rb.DriveSystem().start_moving()
-            time.sleep(3)
-            rb.DriveSystem().stop_moving()
+            break
+        # if rb.InfraredAsBeaconButtonSensor.is_top_blue_button_pressed is True:
+        #     # rb.DriveSystem.go_straight_inches(-11)
+        #     rb.DriveSystem().start_moving()
+        #     time.sleep(3)
+        #     rb.DriveSystem().stop_moving()
 
 
 main()
