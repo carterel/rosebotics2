@@ -75,7 +75,7 @@ def main():
 
 
 class RemoteControlEct(object):
-    def __init__(self,robot)
+    def __init__(self,robot):
 
         self.robot = robot
 

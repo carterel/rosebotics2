@@ -739,26 +739,26 @@ class ArmAndClaw(object):
         again at a reasonable speed. Then set the motor's position to 0.
         (Hence, 0 means all the way DOWN and 14.2 * 360 means all the way UP).
         """
-        # Done: Do this as STEP 2 of implementing this class.
-        # self.raise_arm_and_close_claw()
-        # self.motor.reset_degrees_spun()
-        # i = 0
-        # while True:
-        #     if self.motor.get_degrees_spun() <= -5112:
-        #         self.motor.stop_spinning()
-        #         self.motor.reset_degrees_spun()
-        #         break
-        #
-        #     if self.motor.get_degrees_spun() > -5112:
-        #         self.motor.start_spinning(-100)
-        #         i += 1
-        self.raise_arm_and_close_claw()
-        time.sleep(1)
-        starting_degrees = self.motor.get_degrees_spun()
-        while self.motor.get_degrees_spun() > starting_degrees - 5112:
-            self.motor.start_spinning()
-            time.sleep(1)
-            self.motor.reset_degrees_spun()
+        Done: Do this as STEP 2 of implementing this class.
+         self.raise_arm_and_close_claw()
+         self.motor.reset_degrees_spun()
+         i = 0
+         while True:
+            if self.motor.get_degrees_spun() <= -5112:
+                 self.motor.stop_spinning()
+                 self.motor.reset_degrees_spun()
+            break
+
+             if self.motor.get_degrees_spun() > -5112:
+                 self.motor.start_spinning(-100)
+                 i += 1
+        #self.raise_arm_and_close_claw()
+        #time.sleep(1)
+        #starting_degrees = self.motor.get_degrees_spun()
+        #while self.motor.get_degrees_spun() > starting_degrees - 5112:
+            #self.motor.start_spinning()
+            #time.sleep(1)
+            #self.motor.reset_degrees_spun()
 
     def raise_arm_and_close_claw(self):
         """
