@@ -220,6 +220,7 @@ class DriveSystem(object):
         self.right_wheel.reset_degrees_spun()
         self.start_moving(duty_cycle_percent, duty_cycle_percent)
         while True:
+            print('is it working')
             degrees_turned = self.left_wheel.get_degrees_spun()
             if degrees_turned > (inches * 80):
                 break
