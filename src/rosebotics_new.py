@@ -218,13 +218,15 @@ class DriveSystem(object):
 
         self.left_wheel.reset_degrees_spun()
         self.right_wheel.reset_degrees_spun()
+        # Starts moving the robot
         self.start_moving(duty_cycle_percent, duty_cycle_percent)
         while True:
-            print('is it working')
+            # Tracks how far the robot has moved
             degrees_turned = self.left_wheel.get_degrees_spun()
-            if degrees_turned > (inches * 80):
+            # If the robot has moved far enough it breaks and stops
+            if degrees_turned >= (inches * 80):
                 break
-        self.stop_moving(stop_action)
+        self.stop_moving(stop_action.value)
 
     def spin_in_place_degrees(self,
                               degrees,
@@ -247,32 +249,41 @@ class DriveSystem(object):
 
         self.left_wheel.reset_degrees_spun()
         self.right_wheel.reset_degrees_spun()
+        # Starts spinning the Left Wheel forward and the Right Wheel backwards
         self.left_wheel.start_spinning(duty_cycle_percent)
         self.right_wheel.start_spinning(duty_cycle_percent * -1)
         while True:
+            # Tracks how many degrees left wheel has turned
             degrees_turned = self.left_wheel.get_degrees_spun()
-            if degrees_turned > (degrees * 5):
+            # If it has gone degrees specified it breaks and stops
+            if degrees_turned >= (degrees * 5):
                 break
-        self.stop_moving(stop_action)
+        self.stop_moving(stop_action.value)
     def turn_degrees(self,
                      degrees,
                      duty_cycle_percent=100,
                      stop_action=StopAction.BRAKE):
 
+        # Resets how far the wheels have gone
         self.left_wheel.reset_degrees_spun()
         self.right_wheel.reset_degrees_spun()
+        # If degrees are POSITIVE then it will turn LEFT
         if degrees > 0:
             self.left_wheel.start_spinning(duty_cycle_percent)
+        # If degrees are NEGATIVE then it will turn RIGHT
         elif degrees < 0:
             self.right_wheel.start_spinning(duty_cycle_percent)
         while True:
+            # If degrees are POSITIVE then it checks how much LEFT wheel has turned
             if degrees > 0:
                 degrees_turned = self.left_wheel.get_degrees_spun()
+            # If degrees are NEGATIVE then it checks how much RIGHT wheel has turned
             elif degrees < 0:
                 degrees_turned = self.right_wheel.get_degrees_spun()
+            # If the current wheel has turned degrees specified it breaks and stops
             if degrees_turned > (degrees * 10):
                 break
-        self.stop_moving(stop_action)
+        self.stop_moving(stop_action.value)
         """
         Makes the robot TURN for the given number of DEGREES
         at the given speed (-100 to 100, where POSITIVE means CLOCKWISE
