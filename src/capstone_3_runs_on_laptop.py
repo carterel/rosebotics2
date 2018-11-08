@@ -55,7 +55,7 @@ def main():
     root = tkinter.Tk()
     mqtt_client = com.MqttClient()
     mqtt_client.connect_to_ev3()
-    setup_gui(root,mqtt_client)
+    setup_gui(root, mqtt_client)
 
     root.mainloop()
     # --------------------------------------------------------------------------
@@ -66,17 +66,17 @@ def main():
 
 def setup_gui(root_window):
     """ Constructs and sets up widgets on the given window. """
-    frame = ttk.Frame(root_window, padding=10)
+    frame = ttk.Frame(root_window, padding=100)
     frame.grid()
 
     speed_entry_box = ttk.Entry(frame)
-    go_forward_button = ttk.Button(frame, text="Go forward")
+    go_forward_button = ttk.Button(frame, text="Forward")
 
     speed_entry_box.grid()
     go_forward_button.grid()
 
     go_forward_button['command'] = \
-        lambda: handle_go_forward()
+        lambda: handle_go_forward(speed_entry_box, mqtt)
 
 
 def handle_go_forward():
@@ -85,9 +85,10 @@ def handle_go_forward():
     """
     speed = entry.get()
     print('sending...', end='')
-    mqtt.send_message('go_forward', [speed])
+    mqtt.send_message('forward', [speed])
     print('Done', end=' ')
     print(speed)
+
     # --------------------------------------------------------------------------
     # TODO: 6. This function needs the entry box in which the user enters
     # TODO:    the speed at which the robot should move.  Make the 2 changes
