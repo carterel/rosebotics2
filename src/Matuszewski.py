@@ -5,8 +5,11 @@
   Fall term, 2018-2019.
 """
 # Austin module
-import rosebotics as rb
+import rosebotics_new as rb
 import time
+import ev3dev.ev3 as ev3
+
+
 
 
 def main():
@@ -16,9 +19,12 @@ def main():
 
 def run_tests():
     """ Runs various tests. """
+    print('starting test')
     run_test_drive_system()
-    run_test_touch_sensor()
-    run_test_color_sensor()
+    print('test done')
+
+    #run_test_touch_sensor()
+    #run_test_color_sensor()
 
 
 def run_test_drive_system():
@@ -97,6 +103,26 @@ def run_test_color_sensor():
               "{:4}".format(robot.color_sensor.get_reflected_intensity()))
         time.sleep(0.5)
         count = count + 1
+def beep_if_blob():
+    cam = rb.Snatch3rRobot()
+    print('plz work')
+    count = 0
+    while 1 == 1:
+        blob = cam_boi.camera.get_biggest_blob()
+        print(blob)
+        size = blob.get_area()
+        print(size)
+        count =+ 1
+        print (size)
+        if size >= 60:
+            print('it worked?')
+            ev3.Sound.beep().wait(1)
+            break
+        else:
+            print("eh",count)
+    print('yah?')
+
+
 
 
 main()

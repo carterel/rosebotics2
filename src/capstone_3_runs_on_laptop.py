@@ -5,10 +5,10 @@ Mini-application:  Buttons on a Tkinter GUI tell the robot to:
 This module runs on your LAPTOP.
 It uses MQTT to SEND information to a program running on the ROBOT.
 
-Authors:  David Mutchler, his colleagues, and PUT_YOUR_NAME_HERE.
+Authors:  David Mutchler, his colleagues, and Austin Matuszewski
 """
 # ------------------------------------------------------------------------------
-# TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.  Then delete this TODO.
+# Done: 1. PUT YOUR NAME IN THE ABOVE LINE.  Then delete this TODO.
 # ------------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------------
@@ -49,18 +49,17 @@ from tkinter import ttk
 import mqtt_remote_method_calls as com
 
 
+
 def main():
     """ Constructs and runs a GUI for this program. """
     root = tkinter.Tk()
-    setup_gui(root)
-
-    root.mainloop()
+    mqtt_client = com.MqttClient()
+    mqtt_client.connect_to_ev3()
     # --------------------------------------------------------------------------
     # TODO: 5. Add code above that constructs a   com.MqttClient   that will
     # TODO:    be used to send commands to the robot.  Connect it to this pc.
     # TODO:    Test.  When OK, delete this TODO.
     # --------------------------------------------------------------------------
-
 
 def setup_gui(root_window):
     """ Constructs and sets up widgets on the given window. """
@@ -81,6 +80,11 @@ def handle_go_forward():
     """
     Tells the robot to go forward at the speed specified in the given entry box.
     """
+    speed = entry.get()
+    print('sending...', end='')
+    mqtt.send_message('turnandgo')
+    print('Done', end=' ')
+    print(speed)
     # --------------------------------------------------------------------------
     # TODO: 6. This function needs the entry box in which the user enters
     # TODO:    the speed at which the robot should move.  Make the 2 changes

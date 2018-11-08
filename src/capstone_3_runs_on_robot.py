@@ -7,7 +7,7 @@ Also: responds to Beacon button-presses by beeping, speaking.
 This module runs on the ROBOT.
 It uses MQTT to RECEIVE information from a program running on the LAPTOP.
 
-Authors:  David Mutchler, his colleagues, and PUT_YOUR_NAME_HERE.
+Authors:  David Mutchler, his colleagues, and Austin Matuszewski
 """
 # ------------------------------------------------------------------------------
 # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.  Then delete this TODO.
@@ -49,6 +49,10 @@ def main():
     # TODO:    that appears to do nothing, is necessary.
     # TODO:    When you understand this, delete this TODO.
     # --------------------------------------------------------------------------
+    remote = RemoteControlEtc(bot)
+    client = com.MqttClient(remote)
+    client.connect_to_pc()
+
     while True:
         # ----------------------------------------------------------------------
         # TODO: 7. Add code that makes the robot beep if the top-red button
@@ -57,6 +61,20 @@ def main():
         # TODO:    Beacon is pressed.  Test.  When done, delete this TODO.
         # ----------------------------------------------------------------------
         time.sleep(0.01)  # For the delegate to do its work
+        if bot.beacon__button_sensor.is_top_red_button_pressed():
+            ev3.Soundbeep()
+        if bot.beacon__button_sensor.is_top_red_button_pressed():
+            ev3.Sound.speak("Hello. How are you?")
 
+
+class RemoteControlEct(object):
+    def __init__(self,robot)
+
+        self.robot = robot
+
+    def go_foward(self,speed_string):
+        print("Telling the robot to move foward at given speed",speed_string)
+        speed = int(speed_string)
+        self.robot.drive_system.start_moving(speed, speed)
 
 main()

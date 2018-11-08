@@ -109,6 +109,17 @@ class DriveSystem(object):
         # TODO:   from wheel-degrees-spun to robot-inches-moved.
         # TODO:   Assume that the conversion is linear with respect to speed.
 
+        self.left_wheel.reset_degrees_spun()
+        self.right_wheel.reset_degrees_spun()
+        self.start_moving(duty_cycle_percent, duty_cycle_percent)
+        while True:
+            degrees_turned = self.left_wheel.get_degrees_spun()
+            if degrees_turned > (inches * 80):
+                break
+        self.stop_moving(stop_action)
+
+
+
     def spin_in_place_degrees(self,
                               degrees,
                               duty_cycle_percent=100,
@@ -122,6 +133,18 @@ class DriveSystem(object):
         # TODO: Do a few experiments to determine the constant that converts
         # TODO:   from wheel-degrees-spun to robot-degrees-spun.
         # TODO:   Assume that the conversion is linear with respect to speed.
+
+        self.left_wheel.reset_degrees_spun()
+        self.right_wheel.reset_degrees_spun()
+        self.left_wheel.start_spinning(duty_cycle_percent)
+        self.right_wheel.start_spinning(duty_cycle_percent * -1)
+        while True:
+            degrees_turned = self.left_wheel.get_degrees_spun()
+            if degrees_turned > (degrees * 5):
+                break
+        self.stop_moving(stop_action)
+
+
     def turn_degrees(self,
                      degrees,
                      duty_cycle_percent=100,
@@ -135,6 +158,21 @@ class DriveSystem(object):
         # TODO: Do a few experiments to determine the constant that converts
         # TODO:   from wheel-degrees-spun to robot-degrees-turned.
         # TODO:   Assume that the conversion is linear with respect to speed.
+
+        self.left_wheel.reset_degrees_spun()
+        self.right_wheel.reset_degrees_spun()
+        if degrees > 0:
+            self.left_wheel.start_spinning(duty_cycle_percent)
+        elif degrees < 0:
+            self.right_wheel.start_spinning(duty_cycle_percent)
+        while True:
+            if degrees > 0:
+                degrees_turned = self.left_wheel.get_degrees_spun()
+            elif degrees < 0:
+                degrees_turned = self.right_wheel.get_degrees_spun()
+            if degrees_turned > (degrees * 10):
+                break
+        self.stop_moving(stop_action)
 
 
 class ArmAndClaw(object):
