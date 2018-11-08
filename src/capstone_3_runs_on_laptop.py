@@ -55,6 +55,9 @@ def main():
     root = tkinter.Tk()
     mqtt_client = com.MqttClient()
     mqtt_client.connect_to_ev3()
+    setup_gui(root,mqtt_client)
+
+    root.mainloop()
     # --------------------------------------------------------------------------
     # TODO: 5. Add code above that constructs a   com.MqttClient   that will
     # TODO:    be used to send commands to the robot.  Connect it to this pc.
@@ -82,7 +85,7 @@ def handle_go_forward():
     """
     speed = entry.get()
     print('sending...', end='')
-    mqtt.send_message('turnandgo')
+    mqtt.send_message('go_forward', [speed])
     print('Done', end=' ')
     print(speed)
     # --------------------------------------------------------------------------

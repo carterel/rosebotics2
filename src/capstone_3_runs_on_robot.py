@@ -26,6 +26,13 @@ import ev3dev.ev3 as ev3
 
 
 def main():
+    bot = rb.Snatch3rRobot()
+
+    remote = RemoteControlEct(bot)
+    client = com.MqttClient(remote)
+    client.connect_to_pc()
+
+
     # --------------------------------------------------------------------------
     # TODO: 3. Construct a Snatch3rRobot.  Test.  When OK, delete this TODO.
     # --------------------------------------------------------------------------
