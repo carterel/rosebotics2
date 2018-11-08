@@ -16,8 +16,8 @@ def main():
 
 def tests():
     # test_touch_sensor()
-    # test_drive_until_color(1)
-    test_beep_if_detect()
+    test_drive_until_color(1)
+    # test_beep_if_detect()
     # test_beacon_buttons()
 
 
