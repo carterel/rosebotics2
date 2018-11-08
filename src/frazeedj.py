@@ -17,8 +17,8 @@ def main():
 def tests():
     # test_touch_sensor()
     # test_drive_until_color(1)
-    # test_beep_if_detect()
-    test_beacon_buttons()
+    test_beep_if_detect()
+    # test_beacon_buttons()
 
 
 def test_touch_sensor():
@@ -43,9 +43,9 @@ def test_drive_until_color(color):
 
 def test_beep_if_detect():
     while True:
-        if rb.InfraredAsProximitySensor.get_distance_to_nearest_object_in_inches() >= 9:
-            if rb.InfraredAsProximitySensor.get_distance_to_nearest_object_in_inches() <= 15:
-                ev3.Sound.beep(1)
+        if rb.InfraredAsProximitySensor(ev3.INPUT_4).get_distance_to_nearest_object_in_inches() >= 9:
+            if rb.InfraredAsProximitySensor(ev3.INPUT_4).get_distance_to_nearest_object_in_inches() <= 15:
+                ev3.Sound.beep()
                 break
 
 
