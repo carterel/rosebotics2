@@ -20,13 +20,19 @@ def main():
 def run_tests():
     """ Runs various tests. """
     print('starting test')
-    run_test_drive_system()
+    # run_test_drive_system()
     print('test done')
-
 
     #run_test_touch_sensor()
     #run_test_color_sensor()
 
+    drive_system = rb.DriveSystem()
+    drive_system.go_straight_inches(12)
+    drive_system.go_straight_inches(-12)
+
+    drive_system.spin_in_place_degrees(720)
+
+    drive_system.turn_degrees(70)
 
 def run_test_drive_system():
     """ Tests the  drive_system  of the Snatch3rRobot. """

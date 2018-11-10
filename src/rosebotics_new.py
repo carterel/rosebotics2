@@ -742,7 +742,7 @@ class ArmAndClaw(object):
         # Sets the motor's position to 0 (the DOWN position).
         # At the DOWN position, the robot fits in its plastic bin,
         # so we start with the ArmAndClaw in that position.
-        self.calibrate()
+        # self.calibrate()
 
     def calibrate(self):
         """
@@ -751,19 +751,17 @@ class ArmAndClaw(object):
         again at a reasonable speed. Then set the motor's position to 0.
         (Hence, 0 means all the way DOWN and 14.2 * 360 means all the way UP).
         """
-        Done: Do this as STEP 2 of implementing this class.
-         self.raise_arm_and_close_claw()
-         self.motor.reset_degrees_spun()
-         i = 0
-         while True:
+        # Done: Do this as STEP 2 of implementing this class.
+        self.raise_arm_and_close_claw()
+        self.motor.reset_degrees_spun()
+        while True:
             if self.motor.get_degrees_spun() <= -5112:
-                 self.motor.stop_spinning()
-                 self.motor.reset_degrees_spun()
-            break
+                self.motor.stop_spinning()
+                self.motor.reset_degrees_spun()
+                break
+            if self.motor.get_degrees_spun() > -5112:
+                self.motor.start_spinning(-100)
 
-             if self.motor.get_degrees_spun() > -5112:
-                 self.motor.start_spinning(-100)
-                 i += 1
         #self.raise_arm_and_close_claw()
         #time.sleep(1)
         #starting_degrees = self.motor.get_degrees_spun()
@@ -807,3 +805,5 @@ class ArmAndClaw(object):
 
             if self.motor.get_degrees_spun() < position:
                 self.motor.start_spinning(100)
+
+
