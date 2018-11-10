@@ -76,7 +76,7 @@ def start_bull(speed, count):
             time.sleep(1)
             print('running')
             timer += 1
-            ev3.Sound.play("/assets/noise.wav")
+            # ev3.Sound.play("/assets/noise.wav")
 
         if timer == int(count):
             print('Done')
