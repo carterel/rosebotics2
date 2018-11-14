@@ -13,7 +13,7 @@ import time
 def main():
     """ Runs YOUR specific part of the project """
     # tests()
-    capstone()
+    gui()
 
 
 def tests():
@@ -76,13 +76,13 @@ def test_beep_if_detect():
 #         rb.DriveSystem().stop_moving()
 
 
-def capstone():
-    maze_drive(1)
+def capstone(speed):
+    maze_drive(1, speed)
 
 
-def maze_drive(finish_color):
+def maze_drive(finish_color, speed):
     while True:
-        rb.DriveSystem().start_moving()
+        rb.DriveSystem().start_moving(int(speed), int(speed))
         if rb.InfraredAsProximitySensor is True:
             rb.DriveSystem().stop_moving()
             blockade()
@@ -102,5 +102,38 @@ def blockade():
             rb.DriveSystem().spin_in_place_degrees(270)
     else:
         rb.DriveSystem().start_moving()
+
+
+def gui():
+    root = tkinter.Tk()
+
+    main_frame = ttk.Frame(root, padding=10)
+    main_frame.grid()
+
+    window_title_frame = ttk.Frame(main_frame)
+    window_title_frame.grid()
+
+    window_title = ttk.Label(window_title_frame, text="Maze Project", font=("Helvetica", 20))
+    window_title.grid()
+
+    speed_label_frame = ttk.Frame(main_frame, padding=20)
+    speed_label_frame.grid()
+
+    speed_label = ttk.Label(speed_label_frame, text='Speed')
+    speed_label.grid()
+
+    speed_entry_box = ttk.Entry(speed_label_frame)
+    speed_entry_box.grid()
+
+    button_frame = ttk.Frame(main_frame, padding=15)
+    button_frame.grid()
+
+    start_button = ttk.Button(button_frame, text="Start")
+    start_button.grid()
+
+    start_button['command'] = lambda: capstone(speed_entry_box.get())
+
+    root.mainloop()
+
 
 main()
