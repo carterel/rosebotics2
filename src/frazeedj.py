@@ -5,13 +5,15 @@
 
 import rosebotics_new as rb
 import ev3dev.ev3 as ev3  # sounds
-# import tkinter
-# from tkinter import ttk
-# import time
+import tkinter
+from tkinter import ttk
+import time
+
 
 def main():
     """ Runs YOUR specific part of the project """
-    tests()
+    # tests()
+    capstone()
 
 
 def tests():
@@ -48,31 +50,59 @@ def test_beep_if_detect():
                 ev3.Sound.beep()
 
 
-
 # def test_beacon_buttons():
-    # root = tkinter.Tk()
-    #
-    # frame1 = ttk.Frame(root, padding=50)
-    # frame1.grid()
-    #
-    # button1 = ttk.Button(frame1, text='Infrared Beacon Buttons')
-    # button1.grid()
-    #
-    # root.mainloop()
-    #
-    # while True:
-    #     time.sleep(0.01)
-    #     if rb.InfraredAsBeaconButtonSensor().is_top_red_button_pressed():
-    #         # rb.DriveSystem.go_straight_inches(-11)
-    #         rb.DriveSystem().start_moving()
-    #         time.sleep(3)
-    #         rb.DriveSystem().stop_moving()
-    #         break
-    #     if rb.InfraredAsBeaconButtonSensor.is_top_blue_button_pressed is True:
-    #         # rb.DriveSystem.go_straight_inches(-11)
-    #         rb.DriveSystem().start_moving()
-    #         time.sleep(3)
-    #         rb.DriveSystem().stop_moving()
+# root = tkinter.Tk()
+#
+# frame1 = ttk.Frame(root, padding=50)
+# frame1.grid()
+#
+# button1 = ttk.Button(frame1, text='Infrared Beacon Buttons')
+# button1.grid()
+#
+# root.mainloop()
+#
+# while True:
+#     time.sleep(0.01)
+#     if rb.InfraredAsBeaconButtonSensor().is_top_red_button_pressed():
+#         # rb.DriveSystem.go_straight_inches(-11)
+#         rb.DriveSystem().start_moving()
+#         time.sleep(3)
+#         rb.DriveSystem().stop_moving()
+#         break
+#     if rb.InfraredAsBeaconButtonSensor.is_top_blue_button_pressed is True:
+#         # rb.DriveSystem.go_straight_inches(-11)
+#         rb.DriveSystem().start_moving()
+#         time.sleep(3)
+#         rb.DriveSystem().stop_moving()
 
+
+def capstone():
+    maze_drive(1, 2)
+
+
+def maze_drive(de_color, finish_color):
+    while True:
+        rb.DriveSystem().start_moving()
+        if rb.InfraredAsProximitySensor is True:
+            rb.DriveSystem().stop_moving()
+            blockade()
+        if rb.ColorSensor().get_color() == de_color:
+            rb.DriveSystem().stop_moving()
+            rb.DriveSystem().spin_in_place_degrees(180)
+            rb.DriveSystem().start_moving()
+        if rb.ColorSensor().get_color() == finish_color:
+            rb.DriveSystem().stop_moving()
+            ev3.Sound.speak('Maze Complete')
+            break
+
+
+def blockade():
+    rb.DriveSystem().spin_in_place_degrees(90)
+    if rb.InfraredAsProximitySensor is True:
+        rb.DriveSystem().spin_in_place_degrees(180)
+        if rb.InfraredAsProximitySensor is True:
+            rb.DriveSystem().spin_in_place_degrees(270)
+    else:
+        rb.DriveSystem().start_moving()
 
 main()
