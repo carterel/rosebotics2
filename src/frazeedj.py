@@ -77,19 +77,15 @@ def test_beep_if_detect():
 
 
 def capstone():
-    maze_drive(1, 2)
+    maze_drive(1)
 
 
-def maze_drive(de_color, finish_color):
+def maze_drive(finish_color):
     while True:
         rb.DriveSystem().start_moving()
         if rb.InfraredAsProximitySensor is True:
             rb.DriveSystem().stop_moving()
             blockade()
-        if rb.ColorSensor().get_color() == de_color:
-            rb.DriveSystem().stop_moving()
-            rb.DriveSystem().spin_in_place_degrees(180)
-            rb.DriveSystem().start_moving()
         if rb.ColorSensor().get_color() == finish_color:
             rb.DriveSystem().stop_moving()
             ev3.Sound.speak('Maze Complete')
@@ -98,8 +94,10 @@ def maze_drive(de_color, finish_color):
 
 def blockade():
     rb.DriveSystem().spin_in_place_degrees(90)
+    time.sleep(2)
     if rb.InfraredAsProximitySensor is True:
         rb.DriveSystem().spin_in_place_degrees(180)
+        time.sleep(2)
         if rb.InfraredAsProximitySensor is True:
             rb.DriveSystem().spin_in_place_degrees(270)
     else:
