@@ -3,31 +3,31 @@
   Fall term, 2018-2019.
 """
 
-import rosebotics_new as rb
-import ev3dev.ev3 as ev3  # sounds
+
 import tkinter
 from tkinter import ttk
-import time
 import mqtt_remote_method_calls as com
 
 
 def main():
     """ Runs YOUR specific part of the project """
-    mqtt_client = com.MqttClient()
-    mqtt_client.connect_to_ev3()
-    gui(mqtt_client)
-
-
-def gui(mqtt_client):
     root = tkinter.Tk()
 
-    main_frame = ttk.Frame(root, padding=10)
+    mqtt_client = com.MqttClient()
+    mqtt_client.connect_to_ev3()
+
+    gui(root, mqtt_client)
+    root.mainloop()
+
+
+def gui(root_window, mqtt_client):
+    main_frame = ttk.Frame(root_window, padding=10)
     main_frame.grid()
 
     window_title_frame = ttk.Frame(main_frame)
     window_title_frame.grid()
 
-    window_title = ttk.Label(window_title_frame, text="Maze Project", font=("Helvetica", 20))
+    window_title = ttk.Label(window_title_frame, text="Maze Runner", font=("Helvetica", 20))
     window_title.grid()
 
     speed_label_frame = ttk.Frame(main_frame, padding=20)
@@ -46,8 +46,6 @@ def gui(mqtt_client):
     start_button.grid()
 
     start_button['command'] = lambda: capstone(speed_entry_box, mqtt_client)
-
-    root.mainloop()
 
 
 def capstone(entry_box, mqtt_client):
