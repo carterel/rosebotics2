@@ -16,7 +16,8 @@ class Maze(object):
         speed = int(speed_string)
         print('Robot should start the maze')
         run = speed
-        go(run)
+
+        go(run, self.robot)
 
 
 def main():
@@ -29,20 +30,27 @@ def main():
         time.sleep(.01)
 
 
-def go(run):
-    robot = rb.Snatch3rRobot()
+def go(run, robot):
     robot.drive_system.start_moving(run, run)
     while True:
+        number = robot.proximity_sensor.get_distance_to_nearest_object_in_inches()
+        print(number, "one")
         time.sleep(.01)
-        if robot.proximity_sensor.get_distance_to_nearest_object_in_inches() <= 7:
+        if number <= 7:
             robot.drive_system.stop_moving()
             robot.drive_system.spin_in_place_degrees(90)
             time.sleep(2)
-            if robot.proximity_sensor.get_distance_to_nearest_object_in_inches() <= 7:
+            number = robot.proximity_sensor.get_distance_to_nearest_object_in_inches()
+            time.sleep(.02)
+            if number <= 7:
                 robot.drive_system.spin_in_place_degrees(180)
                 time.sleep(2)
-                if robot.proximity_sensor.get_distance_to_nearest_object_in_inches() <= 7:
+                number = robot.proximity_sensor.get_distance_to_nearest_object_in_inches()
+                time.sleep(.02)
+                if number <= 7:
                     robot.drive_system.spin_in_place_degrees(-90)
+                    time.sleep(2)
+                    re_go(robot, run)
                 else:
                     re_go(robot, run)
             else:
@@ -56,20 +64,28 @@ def go(run):
 def re_go(robot, run):
     robot.drive_system.start_moving(run, run)
     while True:
+        number = robot.proximity_sensor.get_distance_to_nearest_object_in_inches()
+        print(number, "two")
         time.sleep(.01)
-        if robot.proximity_sensor.get_distance_to_nearest_object_in_inches() <= 7:
+        if number <= 7:
             robot.drive_system.stop_moving()
             robot.drive_system.spin_in_place_degrees(90)
             time.sleep(2)
-            if robot.proximity_sensor.get_distance_to_nearest_object_in_inches() <= 7:
+            number = robot.proximity_sensor.get_distance_to_nearest_object_in_inches()
+            time.sleep(.02)
+            if number <= 7:
                 robot.drive_system.spin_in_place_degrees(180)
                 time.sleep(2)
-                if robot.proximity_sensor.get_distance_to_nearest_object_in_inches() <= 7:
+                number = robot.proximity_sensor.get_distance_to_nearest_object_in_inches()
+                time.sleep(.02)
+                if number <= 7:
                     robot.drive_system.spin_in_place_degrees(-90)
+                    time.sleep(2)
+                    go(run, robot)
                 else:
-                    go(run)
+                    go(run, robot)
             else:
-                go(run)
+                go(run, robot)
         if robot.color_sensor.get_color() == 4:
             robot.color_sensor.stop_moving()
             ev3.Sound.speak('Maze Complete')
