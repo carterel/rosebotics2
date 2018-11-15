@@ -34,7 +34,7 @@ def go(run, robot):
     robot.drive_system.start_moving(run, run)
     while True:
         number = robot.proximity_sensor.get_distance_to_nearest_object_in_inches()
-        print(number, "one")
+        color = robot.color_sensor.get_color()
         time.sleep(.01)
         if number <= 7:
             robot.drive_system.stop_moving()
@@ -50,22 +50,22 @@ def go(run, robot):
                 if number <= 7:
                     robot.drive_system.spin_in_place_degrees(-90)
                     time.sleep(2)
-                    re_go(robot, run)
+                    re_go(run, robot)
                 else:
-                    re_go(robot, run)
+                    re_go(run, robot)
             else:
-                re_go(robot, run)
-        if robot.color_sensor.get_color() == 4:
-            robot.color_sensor.stop_moving()
+                re_go(run, robot)
+        if color == 4:
+            robot.drive_system.stop_moving()
             ev3.Sound.speak('Maze Complete')
             break
 
 
-def re_go(robot, run):
+def re_go(run, robot):
     robot.drive_system.start_moving(run, run)
     while True:
         number = robot.proximity_sensor.get_distance_to_nearest_object_in_inches()
-        print(number, "two")
+        color = robot.color_sensor.get_color()
         time.sleep(.01)
         if number <= 7:
             robot.drive_system.stop_moving()
@@ -86,31 +86,31 @@ def re_go(robot, run):
                     go(run, robot)
             else:
                 go(run, robot)
-        if robot.color_sensor.get_color() == 4:
-            robot.color_sensor.stop_moving()
+        if color == 4:
+            robot.drive_system.stop_moving()
             ev3.Sound.speak('Maze Complete')
             break
 
 
 main()
 
-        # while True:
-        # if rbb.proximity_sensor.get_distance_to_nearest_object_in_inches() <= 6:
-        #     rbb.drive_system.stop_moving()
-        #     rbb.drive_system.spin_in_place_degrees(90)
-        #     time.sleep(2)
-        #     if rbb.proximity_sensor.get_distance_to_nearest_object_in_inches() <= 6:
-        #         rbb.drive_system.spin_in_place_degrees(180)
-        #         time.sleep(2)
-        #         if rbb.proximity_sensor.get_distance_to_nearest_object_in_inches() <= 6:
-        #             rbb.drive_system.spin_in_place_degrees(-90)
-        #         else:
-        #             rbb.drive_system.start_moving()()
-        #     else:
-        #         rbb.drive_system.stop_moving()
-        # if rbb.color_sensor.get_color() == 4:
-        #     rbb.color_sensor.stop_moving()
-        #     ev3.Sound.speak('Maze Complete')
-        #     break
-        # if self.robot.touch_sensor() is True:
-        #     rbb.drive_system.stop_moving()
+# while True:
+# if rbb.proximity_sensor.get_distance_to_nearest_object_in_inches() <= 6:
+#     rbb.drive_system.stop_moving()
+#     rbb.drive_system.spin_in_place_degrees(90)
+#     time.sleep(2)
+#     if rbb.proximity_sensor.get_distance_to_nearest_object_in_inches() <= 6:
+#         rbb.drive_system.spin_in_place_degrees(180)
+#         time.sleep(2)
+#         if rbb.proximity_sensor.get_distance_to_nearest_object_in_inches() <= 6:
+#             rbb.drive_system.spin_in_place_degrees(-90)
+#         else:
+#             rbb.drive_system.start_moving()()
+#     else:
+#         rbb.drive_system.stop_moving()
+# if rbb.color_sensor.get_color() == 4:
+#     rbb.color_sensor.stop_moving()
+#     ev3.Sound.speak('Maze Complete')
+#     break
+# if self.robot.touch_sensor() is True:
+#     rbb.drive_system.stop_moving()
